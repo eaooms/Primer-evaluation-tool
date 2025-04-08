@@ -1,0 +1,60 @@
+# === Java General ===
+*.class
+*.log
+hs_err_pid*
+replay_pid*
+
+# === Maven ===
+/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# === IDEs ===
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# === OS Specific ===
+.DS_Store
+Thumbs.db
+
+# === Archives and Packages ===
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# === BlueJ ===
+*.ctxt
+
+# === J2ME Mobile Tools ===
+.mtj.tmp/
+
+# === Other ===
+*.tmp
+*.swp
