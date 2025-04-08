@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Primer Evaluation Tool</title>
+</head>
+<body>
+<h1>Primer Evaluation Tool</h1>
+
+<div th:if="${error}">
+    <p style="color:red;" th:text="${error}"></p>
+</div>
+
+<form action="/analyze" method="post">
+    <fieldset>
+        <legend>Forward Primer</legend>
+        <label for="forwardName">Naam:</label>
+        <input type="text" id="forwardName" name="forwardName" required /><br/>
+        <label for="forwardSequence">Sequentie:</label>
+        <input type="text" id="forwardSequence" name="forwardSequence" required /><br/>
+    </fieldset>
+    <br/>
+    <fieldset>
+        <legend>Reverse Primer (optioneel)</legend>
+        <label for="reverseName">Naam:</label>
+        <input type="text" id="reverseName" name="reverseName" /><br/>
+        <label for="reverseSequence">Sequentie:</label>
+        <input type="text" id="reverseSequence" name="reverseSequence" /><br/>
+    </fieldset>
+    <br/>
+    <input type="submit" value="Analyseer" />
+</form>
+
+<br/>
+
+<div th:if="${result}">
+    <h2>Analyse Resultaten</h2>
+    <p><strong>GC Percentage:</strong> <span th:text="${result.gcPercentage}"></span>%</p>
+</div>
+
+<br/>
+
+</body>
+</html>
