@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Primer Evaluation Tool</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 <h1>Primer Evaluation Tool</h1>
@@ -29,15 +30,16 @@
     </fieldset>
     <br/>
     <input type="submit" value="Analyseer" />
+    <br/>
+
+    <div th:if="${result}">
+        <h2>Analyse Resultaten</h2>
+        <p><strong>GC Percentage:</strong> <span th:text="${result.gcPercentage}"></span>%</p>
+        <p><strong>Smelttemperatuur:</strong> <span th:text="${result.meltingPoint}"></span> °C</p>
+        <p><strong>Maximale Homopolymeer Stretch:</strong> <span th:text="${result.maxHomopolymer}"></span></p>
+    </div>
+
 </form>
-
-<br/>
-
-<div th:if="${result}">
-    <h2>Analyse Resultaten</h2>
-    <p><strong>GC Percentage:</strong> <span th:text="${result.gcPercentage}"></span>%</p>
-</div>
-
 <br/>
 
 </body>

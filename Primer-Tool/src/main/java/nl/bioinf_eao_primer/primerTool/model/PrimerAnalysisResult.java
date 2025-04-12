@@ -4,6 +4,8 @@ public class PrimerAnalysisResult {
     private Primer forward;
     private Primer reverse;
     private double gcPercentage;
+    private int meltingPoint;
+    private int maxHomopolymer;
 
     public PrimerAnalysisResult() {}
 
@@ -32,4 +34,13 @@ public class PrimerAnalysisResult {
     public void setGcPercentage(double gcPercentage) {
         this.gcPercentage = gcPercentage;
     }
+
+    public int getMeltingPoint() {return meltingPoint;}
+
+    public void setMeltingPoint(int meltingPoint) {this.meltingPoint = meltingPoint;}
+
+    public int getMaxHomopolymer() {return maxHomopolymer;}
+
+    public void setMaxHomopolymer(int maxHomopolymer) {this.maxHomopolymer = maxHomopolymer;}
+
 }
