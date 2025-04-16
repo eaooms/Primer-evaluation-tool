@@ -8,7 +8,15 @@ public class Primer {
 
     public Primer(String name, String sequence) {
         this.name = name;
-        this.sequence = sequence;
+        this.sequence = cleanSequence(sequence);
+    }
+
+    // Haal de 5' en de 3' weg van de sequenctie, als die wordt meegegeven
+    public String cleanSequence(String sequence) {
+        if (sequence == null) return "";
+        sequence = sequence.replaceFirst("^5?[’']?-?", "");
+        sequence = sequence.replaceFirst("-?3?[’']?$", "");
+        return sequence.trim();
     }
 
     public String getName() {
@@ -24,6 +32,6 @@ public class Primer {
     }
 
     public void setSequence(String sequence) {
-        this.sequence = sequence;
+        this.sequence = cleanSequence(sequence);
     }
 }

@@ -7,11 +7,6 @@
 </head>
 <body>
 <h1>Primer Evaluation Tool</h1>
-
-<div th:if="${error}">
-    <p style="color:red;" th:text="${error}"></p>
-</div>
-
 <form action="/analyze" method="post">
     <fieldset>
         <legend>Forward Primer</legend>
@@ -37,6 +32,10 @@
         <p><strong>GC Percentage:</strong> <span th:text="${result.gcPercentage}"></span>%</p>
         <p><strong>Smelttemperatuur:</strong> <span th:text="${result.meltingPoint}"></span> °C</p>
         <p><strong>Maximale Homopolymeer Stretch:</strong> <span th:text="${result.maxHomopolymer}"></span></p>
+    </div>
+
+    <div th:if="${error}">
+        <p style="color:red;" th:text="${error}"></p>
     </div>
 
 </form>

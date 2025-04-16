@@ -34,21 +34,21 @@ public class PrimerController {
             @RequestParam(value = "reverseSequence", required = false) String reverseSequence,
             Model model) {
 
+        Primer forwardPrimer = new Primer(forwardName, forwardSequence);
+        Primer reversePrimer = new Primer(reverseName, reverseSequence);
+
         // Validatie: sequenties mogen alleen acgt/ACGT bevatten
-        if(!isValidSequence(forwardSequence) || (!StringUtils.isEmpty(reverseSequence) && !isValidSequence(reverseSequence))) {
+        if(!isValidSequence(forwardPrimer.getSequence()) || (!StringUtils.isEmpty(reversePrimer.getSequence()) && !isValidSequence(reversePrimer.getSequence()))) {
             model.addAttribute("error", "Ongeldige sequentie ingevoerd. Alleen acgt/ACGT is toegestaan.");
             return "index";
         }
-
-        Primer forwardPrimer = new Primer(forwardName, forwardSequence);
-        Primer reversePrimer = new Primer(reverseName, reverseSequence);
 
         PrimerAnalysisResult result = analysisService.analyze(forwardPrimer, reversePrimer);
         model.addAttribute("result", result);
         return "index";
     }
 
-    private boolean isValidSequence(String sequence) {
-        return sequence != null && sequence.matches("[acgtACGT]+");
+    public boolean isValidSequence(String sequence) {
+        return sequence != null && sequence.matches("[atcgACGT]+$");
     }
 }

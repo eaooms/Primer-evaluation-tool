@@ -13,10 +13,13 @@ public class PrimerAnalysisService {
         result.setForward(forward);
         result.setReverse(reverse);
 
-        String seq = forward.getSequence();
-        result.setGcPercentage(calculateGCPercentage(seq));
-        result.setMeltingPoint(calculateMeltingPoint(seq));
-        result.setMaxHomopolymer(calculateMaxHomopolymer(seq));
+        String forwardSequence = forward.getSequence();
+        String reverseSequence = reverse.getSequence();
+
+
+        result.setGcPercentage(calculateGCPercentage(forwardSequence));
+        result.setMeltingPoint(calculateMeltingPoint(forwardSequence));
+        result.setMaxHomopolymer(calculateMaxHomopolymer(forwardSequence));
 
         return result;
     }
