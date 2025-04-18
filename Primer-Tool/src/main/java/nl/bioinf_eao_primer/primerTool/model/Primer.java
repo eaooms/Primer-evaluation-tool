@@ -11,7 +11,7 @@ public class Primer {
         this.sequence = cleanSequence(sequence);
     }
 
-    // Haal de 5' en de 3' weg van de sequenctie, als die wordt meegegeven
+    // Remove the 5' and 3' from the sequence, if present
     public String cleanSequence(String sequence) {
         if (sequence == null) return "";
         sequence = sequence.replaceFirst("^5?[’']?-?", "");

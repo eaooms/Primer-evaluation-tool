@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Primer Evaluation Tool</title>
@@ -7,39 +7,69 @@
 </head>
 <body>
 <h1>Primer Evaluation Tool</h1>
-<form action="/analyze" method="post">
-    <fieldset>
-        <legend>Forward Primer</legend>
-        <label for="forwardName">Naam:</label>
-        <input type="text" id="forwardName" name="forwardName" required /><br/>
-        <label for="forwardSequence">Sequentie:</label>
-        <input type="text" id="forwardSequence" name="forwardSequence" required /><br/>
-    </fieldset>
-    <br/>
-    <fieldset>
-        <legend>Reverse Primer (optioneel)</legend>
-        <label for="reverseName">Naam:</label>
-        <input type="text" id="reverseName" name="reverseName" /><br/>
-        <label for="reverseSequence">Sequentie:</label>
-        <input type="text" id="reverseSequence" name="reverseSequence" /><br/>
-    </fieldset>
-    <br/>
-    <input type="submit" value="Analyseer" />
-    <br/>
 
-    <div th:if="${result}">
-        <h2>Analyse Resultaten</h2>
-        <p><strong>GC Percentage:</strong> <span th:text="${result.gcPercentage}"></span>%</p>
-        <p><strong>Smelttemperatuur:</strong> <span th:text="${result.meltingPoint}"></span> °C</p>
-        <p><strong>Maximale Homopolymeer Stretch:</strong> <span th:text="${result.maxHomopolymer}"></span></p>
+<div class="content">
+    <!-- Primer field div -->
+    <div class="main">
+        <form action="/analyze" method="post">
+            <fieldset>
+                <legend>Forward Primer</legend>
+                <label for="forwardName">Name:</label>
+                <input type="text" id="forwardName" name="forwardName" required /><br/>
+                <label for="forwardSequence">Sequence:</label>
+                <input type="text" id="forwardSequence" name="forwardSequence" required /><br/>
+            </fieldset>
+
+            <br/>
+            <fieldset>
+                <legend>Reverse Primer (optional)</legend>
+                <label for="reverseName">Name:</label>
+                <input type="text" id="reverseName" name="reverseName" /><br/>
+                <label for="reverseSequence">Sequence:</label>
+                <input type="text" id="reverseSequence" name="reverseSequence" /><br/>
+            </fieldset>
+
+            <br/>
+
+            <input type="submit" value="Analyseer" />
+        </form>
+
+        <div th:if="${result}">
+            <h2>Analysis Results</h2>
+            <p><strong>GC Percentage:</strong> <span th:text="${result.gcPercentage}"></span>%</p>
+            <p><strong>Melting Temperature:</strong> <span th:text="${result.meltingPoint}"></span> °C</p>
+            <p><strong>Maximum Homopolymer Stretch:</strong> <span th:text="${result.maxHomopolymer}"></span></p>
+            <p><strong>Max 3' Intermolecular Identity:</strong> <span th:text="${result.max3IntermolecularIdentity}"></span></p>
+            <p><strong>Max 3' Intramolecular Identity:</strong> <span th:text="${result.max3IntramolecularIdentity}"></span></p>
+        </div>
+
+        <div th:if="${error}">
+            <p class="error" style="color:red;" th:text="${error}"></p>
+        </div>
     </div>
 
-    <div th:if="${error}">
-        <p style="color:red;" th:text="${error}"></p>
+    <!-- History div -->
+    <div class="sidebar" th:if="${history != null and history.size() > 0}">
+        <h2>Analysis History</h2>
+        <ul>
+            <li th:each="item : ${history}">
+                <strong th:text="${item.forward.name}">F-name</strong>:
+                <span th:text="${item.forward.sequence}">F-seq</span>
+                <span th:if="${item.reverse != null}">
+                        &nbsp;|&nbsp;
+                        <strong th:text="${item.reverse.name}">R-name</strong>:
+                        <span th:text="${item.reverse.sequence}">R-seq</span>
+                    </span>
+                <form th:action="@{/analyze}" method="post" class="rerun-form">
+                    <input type="hidden" name="forwardName" th:value="${item.forward.name}" />
+                    <input type="hidden" name="forwardSequence" th:value="${item.forward.sequence}" />
+                    <input type="hidden" name="reverseName" th:value="${item.reverse?.name}" />
+                    <input type="hidden" name="reverseSequence" th:value="${item.reverse?.sequence}" />
+                    <button type="submit">Re-run</button>
+                </form>
+            </li>
+        </ul>
     </div>
-
-</form>
-<br/>
-
+</div>
 </body>
 </html>

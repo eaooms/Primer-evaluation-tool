@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 
 import nl.bioinf_eao_primer.primerTool.model.Primer;
 import nl.bioinf_eao_primer.primerTool.model.PrimerAnalysisResult;
@@ -20,9 +19,9 @@ public class PrimerController {
 
     @GetMapping("/")
     public String showForm(Model model) {
-        //Lege primer objecten
         model.addAttribute("forwardPrimer", new Primer());
         model.addAttribute("reversePrimer", new Primer());
+        model.addAttribute("history", analysisService.getHistory());
         return "index";
     }
 
@@ -37,14 +36,16 @@ public class PrimerController {
         Primer forwardPrimer = new Primer(forwardName, forwardSequence);
         Primer reversePrimer = new Primer(reverseName, reverseSequence);
 
-        // Validatie: sequenties mogen alleen acgt/ACGT bevatten
-        if(!isValidSequence(forwardPrimer.getSequence()) || (!StringUtils.isEmpty(reversePrimer.getSequence()) && !isValidSequence(reversePrimer.getSequence()))) {
-            model.addAttribute("error", "Ongeldige sequentie ingevoerd. Alleen acgt/ACGT is toegestaan.");
+        if (!isValidSequence(forwardPrimer.getSequence()) ||
+                (!reversePrimer.getSequence().isEmpty() && !isValidSequence(reversePrimer.getSequence()))) {
+            model.addAttribute("error", "The forward or reverse primer contains an invalid sequence. Only the letters A, C, G, and T are allowed.");
+            model.addAttribute("history", analysisService.getHistory());
             return "index";
         }
 
         PrimerAnalysisResult result = analysisService.analyze(forwardPrimer, reversePrimer);
         model.addAttribute("result", result);
+        model.addAttribute("history", analysisService.getHistory());
         return "index";
     }
 
