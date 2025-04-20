@@ -1,6 +1,6 @@
 # Primer Evaluation Tool
 
-A simple Spring Boot + Thymeleaf web application to analyze DNA primers.
+A simple web application to analyze DNA primers.
 
 ## Technologies
 
