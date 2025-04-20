@@ -14,7 +14,7 @@ public class PrimerAnalysisService {
     private static final int HISTORY_LIMIT = 5;
     private LinkedList<PrimerAnalysisResult> history = new LinkedList<>();
 
-    public PrimerAnalysisResult analyze(Primer forward, Primer reverse) {
+    public PrimerAnalysisResult analyze(Primer forward, Primer reverse, Boolean isRerun) {
         PrimerAnalysisResult result = new PrimerAnalysisResult();
         result.setForward(forward);
         result.setReverse(reverse);
@@ -37,7 +37,9 @@ public class PrimerAnalysisService {
         }
 
         // Add to history
-        addToHistory(result);
+        if (!isRerun) {
+            addToHistory(result);
+        }
 
         return result;
     }

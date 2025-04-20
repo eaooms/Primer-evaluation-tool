@@ -31,6 +31,7 @@ public class PrimerController {
             @RequestParam("forwardSequence") String forwardSequence,
             @RequestParam(value = "reverseName", required = false) String reverseName,
             @RequestParam(value = "reverseSequence", required = false) String reverseSequence,
+            @RequestParam(value = "isRerun", defaultValue = "false") boolean isRerun,
             Model model) {
 
         Primer forwardPrimer = new Primer(forwardName, forwardSequence);
@@ -43,7 +44,7 @@ public class PrimerController {
             return "index";
         }
 
-        PrimerAnalysisResult result = analysisService.analyze(forwardPrimer, reversePrimer);
+        PrimerAnalysisResult result = analysisService.analyze(forwardPrimer, reversePrimer, isRerun);
         model.addAttribute("result", result);
         model.addAttribute("history", analysisService.getHistory());
         return "index";

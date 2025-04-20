@@ -65,6 +65,7 @@
                     <input type="hidden" name="forwardSequence" th:value="${item.forward.sequence}" />
                     <input type="hidden" name="reverseName" th:value="${item.reverse?.name}" />
                     <input type="hidden" name="reverseSequence" th:value="${item.reverse?.sequence}" />
+                    <input type="hidden" name="isRerun" value="true" />
                     <button type="submit">Re-run</button>
                 </form>
             </li>

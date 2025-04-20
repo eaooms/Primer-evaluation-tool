@@ -32,7 +32,7 @@ class PrimerAnalysisServiceTest {
     @Test
     void testGcPercentageCalculation() {
         Primer primer = new Primer("TestPrimer", "GCGCGCATAT");
-        PrimerAnalysisResult result = service.analyze(primer, null);
+        PrimerAnalysisResult result = service.analyze(primer, null, false);
 
         double expectedGC = 60.0;
         assertEquals(expectedGC, result.getGcPercentage(), 0.01);
@@ -41,7 +41,7 @@ class PrimerAnalysisServiceTest {
     @Test
     void testMeltingPointCalculation() {
         Primer primer = new Primer("MeltTest", "ATGC");
-        PrimerAnalysisResult result = service.analyze(primer, null);
+        PrimerAnalysisResult result = service.analyze(primer, null, false);
 
         int expectedTm = 12;
         assertEquals(expectedTm, result.getMeltingPoint());
@@ -50,7 +50,7 @@ class PrimerAnalysisServiceTest {
     @Test
     void testMaxHomopolymer() {
         Primer primer = new Primer("StretchTest", "AAAGGGGTT");
-        PrimerAnalysisResult result = service.analyze(primer, null);
+        PrimerAnalysisResult result = service.analyze(primer, null, false);
 
         int expectedMaxStretch = 4;
         assertEquals(expectedMaxStretch, result.getMaxHomopolymer());
